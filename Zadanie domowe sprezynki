@@ -1,0 +1,85 @@
+% Problem - jakie siły (co do wartości) występują gdy
+% w specyficzny sposób umocujemy małą kulkę na sprężynkach?
+
+ a = 0.10;  
+ b = 0.10; % metry
+ c = 0.10; 
+
+ k = 1000; % N/m
+
+ L0 = 0.5 * sqrt(a.^2 + b.^2 + c.^2); % długość spężynki
+
+ delta = 0.01; % Przemieszczenie piłeczki
+
+ [theta, phi] = meshgrid(0:5:360, 0:5:360);
+
+ x = delta .* sind(theta) .* cosd(phi);
+ y = delta .* sind(theta) .* sind(phi); 
+ z = delta .* cosd(theta);
+
+ Fs = zeros(size(x)); % Macierz zer
+ Fs2 = zeros(size(x));
+ 
+ xs = -a/2; ys = -b/2; zs = -c/2;
+ L = sqrt((x - xs).^2 + (y - ys).^2 + (z - zs).^2); % Sprężyna nr 1
+ dL = L - L0;
+ Fs = Fs + k * dL;
+ Fs2 = Fs2 + k * dL;
+
+ xs = +a/2; ys = -b/2; zs = -c/2;
+ L = sqrt((x - xs).^2 + (y - ys).^2 + (z - zs).^2); % Sprężyna nr 2
+ dL = L - L0;
+ Fs = Fs + k * dL;  
+ Fs2 = Fs2 + k * dL;
+
+ xs = -a/2; ys = +b/2; zs = -c/2;
+ L = sqrt((x - xs).^2 + (y - ys).^2 + (z - zs).^2); % Sprężyna nr 3
+ dL = L - L0;
+ Fs = Fs + k * dL;     
+ Fs2 = Fs2 + k * dL;
+
+ xs = +a/2; ys = +b/2; zs = -c/2;
+ L = sqrt((x - xs).^2 + (y - ys).^2 + (z - zs).^2); % Sprężyna nr 4
+ dL = L - L0;
+ Fs = Fs + k * dL;   
+ Fs2 = Fs2 + k * dL;
+
+ xs = -a/2; ys = -b/2; zs = +c/2;
+ L = sqrt((x - xs).^2 + (y - ys).^2 + (z - zs).^2); % Sprężyna nr 5
+ dL = L - L0;
+ Fs = Fs + k * dL;      
+ Fs2 = Fs2 + k * dL;
+
+ xs = +a/2; ys = -b/2; zs = +c/2;
+ L = sqrt((x - xs).^2 + (y - ys).^2 + (z - zs).^2); % Sprężyna nr 6
+ dL = L - L0;
+ Fs = Fs + k * dL;;     
+ Fs2 = Fs2 + k * dL;
+
+ xs = -a/2; ys = +b/2; zs = +c/2;
+ L = sqrt((x - xs).^2 + (y - ys).^2 + (z - zs).^2); % Sprężyna nr 7
+ dL = L - L0;
+ Fs = Fs + k * dL;  
+ Fs2 = Fs2 + k * dL;
+
+ xs = +a/2; ys = +b/2; zs = +c/2;
+ L = sqrt((x - xs).^2 + (y - ys).^2 + (z - zs).^2); % Sprężyna nr 8
+ dL = L - L0;
+ Fs = Fs + k * dL;  
+ 
+
+ F = - Fs ./ delta;
+ F1 = - Fs2 ./ delta;
+
+ surf(x, y, z, F);    % Tworzenie wykresu 
+ xlabel( "Składowa x");
+ ylabel( "Składowa y");
+ zlabel( "Składowa z");
+ title( " Wykres ilustrujący rozkład sił na piłce");
+ axis equal;
+ surf(x, y, z, F1);
+ xlabel( "Składowa x");
+ ylabel( "Składowa y");
+ zlabel( "Składowa z");
+ title( " Wykres ilustrujący rozkład sił na piłce po zerwaniu");
+ axis equal;

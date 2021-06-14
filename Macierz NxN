@@ -1,0 +1,11 @@
+function A = macierznxn(n)
+
+D = 4 * eye(n)
+D1 = diag(-2 * ones(n-1,1), 1);
+D2 = diag(-2 * ones(n-1,1), -1);
+D3 = diag( ones(n-2,1), 2);
+D4 = diag( ones(n-2,1), -2);
+
+A = D + D1 + D2 + D3 + D4
+
+end
